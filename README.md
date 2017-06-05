@@ -1,1 +1,1 @@
-Imitate Sina blog to achieve front-end effect:
+Imitate Sina blog to achieve front-end effect
