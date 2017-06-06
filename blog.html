@@ -3,16 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>我的新浪博客</title>
-    <link rel="stylesheet" type="text/css" href="demo.css"/>
+    <link rel="icon" size="18*18" href="img/logo.png">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet"  href="blog.css"/>
 </head>
 <body>
-    <div id="box" style="color:red">box</div>
-    <p class="box">段落</p>
-    <p class="box">段落</p>
-    <p class="box">段落</p>
-    <p></p>
-    <p></p>
+    <header>
+        <div class="logo">
+            <img src="img/logo.gif" alt="logo">
+            <div class="search">
+                <input type="search" placeholder="请输入...">
+                <a href="###"><i class="icon-search"></i></a>
+            </div>
+        </div>
+        <ul class="nav rt">
+            <li><a href="http://www.sina.com"><i class="icon-home"></i> 新浪首页</a></li>
+            <li id="member1">
+                <a href="http://www.angryyan.com">angryyan<i class="icon-caret-down"></i></a>
+                <div class="dropdown" id="menu1">
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                </div>
+            </li>
+            <li><a href="###"><i class="icon-user"></i>个人中心</a></li>
+            <li id="member2">
+                <a href="###">发博文<i class="icon-caret-down"></i></a>
+                <div class="dropdown" id="menu2">
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                </div>
+            </li>
+            <li id="member3">
+                <a href="###">消息<i class="icon-caret-down"></i></a>
+                <div class="dropdown" id="menu3">
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                    <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
+                </div>
+            </li>
+        </ul>
+    </header>
     <script src="base.js"></script>
-    <script src="blog.js"></script>
+    <script src="dropdown.js"></script>
 </body>
 </html>

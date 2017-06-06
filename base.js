@@ -2,13 +2,15 @@
  * Created by yan on 2017/6/4.
  * 封装库
  */
-
-var $ = function(){                           //前台调用
-    return new Base();
+var $ = function(_this){                           //前台调用
+    return new Base(_this);
 }
 
-function Base(){                               //基础库
+function Base(_this){                               //基础库
     this.elements = [];                 //创建一个数组，来保存获取的节点和节点数组  私有化
+    if(_this != undefined){
+        this.elements[0] = _this;
+    }
 }
 //ID获取节点方法
 Base.prototype.getId = function(id){
@@ -37,6 +39,13 @@ Base.prototype.getClass = function(className,idname){
             this.elements.push(all[i]);
         }
     }
+    return this;
+}
+//获取节点数组中的某个节点
+Base.prototype.getElement = function(num){
+    var element = this.elements[num];
+    this.elements = [];
+    this.elements[0] = element;
     return this;
 }
 //Base原型中添加方法
@@ -102,17 +111,32 @@ Base.prototype.html = function(str){
     }
     return this;
 }
+//设置显示方法
+Base.prototype.show = function(){
+    for(var i=0;i<this.elements.length;i++){
+        this.elements[i].style.display = "block";
+    }
+    return this;
+}
+//设置隐藏方法
+Base.prototype.hide = function(){
+    for(var i=0;i<this.elements.length;i++){
+        this.elements[i].style.display = "none";
+    }
+    return this;
+}
+//设置鼠标移入移除
+Base.prototype.hover = function(over,out){
+    for(var i=0;i<this.elements.length;i++){
+        this.elements[i].onmouseover = over;
+        this.elements[i].onmouseout = out;
+    }
+    return this;
+}
 //触发点击事件
 Base.prototype.click = function(fn){
     for(var i=0;i<this.elements.length;i++){
         this.elements[i].onclick = fn;
     }
-    return this;
-}
-//获取节点数组中的某个节点
-Base.prototype.getElement = function(num){
-    var element = this.elements[num];
-    this.elements = [];
-    this.elements[0] = element;
     return this;
 }
