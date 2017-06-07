@@ -133,6 +133,10 @@ Base.prototype.hover = function(over,out){
     }
     return this;
 }
+//设置物体居中
+Base.prototype.center = function(){
+
+}
 //触发点击事件
 Base.prototype.click = function(fn){
     for(var i=0;i<this.elements.length;i++){

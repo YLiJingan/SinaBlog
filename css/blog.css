@@ -20,7 +20,7 @@ input{font-size:12px;}
 body{
     margin:0;
     padding:0;
-    background:url(img/header_bg.png) repeat-x;
+    background:url(../img/header_bg.png) repeat-x;
 }
 header{
     width:950px;
@@ -50,6 +50,7 @@ header .nav li{
     line-height: 30px;
     font-size: 13px;
     font-family: "宋体";
+    position:relative;
 }
 header .nav .dropdown{
     width:55px;
@@ -73,15 +74,14 @@ header .nav .dropdown a:hover{
 }
 header .nav #menu1{
     top:27px;
-    left:65%;
 }
 header .nav #menu2{
     top:27px;
-    left:76%;
+    left:-2px;
 }
 header .nav #menu3{
     top:27px;
-    left:81%;
+    left:-3px;
 }
 
 
