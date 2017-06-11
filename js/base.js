@@ -134,13 +134,24 @@ Base.prototype.hover = function(over,out){
     return this;
 }
 //设置物体居中
-Base.prototype.center = function(){
-
+Base.prototype.center = function(width,height){
+    var top = (document.documentElement.clientHeight - 250) / 2;
+    var left = (document.documentElement.clientWidth - 250) /2;
+    for(var i=0;i<this.elements.length;i++){
+        this.elements[i].style.top = top + 'px';
+        this.elements[i].style.left = left + 'px';
+    }
+    return this;
 }
 //触发点击事件
 Base.prototype.click = function(fn){
     for(var i=0;i<this.elements.length;i++){
         this.elements[i].onclick = fn;
     }
+    return this;
+}
+//触发浏览器窗口事件
+Base.prototype.resize = function(fn){
+    window.onresize = fn;
     return this;
 }

@@ -27,7 +27,7 @@
                     <span><a href="###"><i class="icon-arrow-right"></i>点我</a></span><br>
                 </div>
             </li>
-            <li><a href="###"><i class="icon-user"></i>个人中心</a></li>
+            <li class="login"><a href="###"><i class="icon-user"></i>个人中心</a></li>
             <li id="member2">
                 <a href="###">发博文<i class="icon-caret-down"></i></a>
                 <div class="dropdown" id="menu2">
@@ -48,7 +48,29 @@
             </li>
         </ul>
     </header>
+    <div class="panel">
+        <div class="login-header">
+            <h1>Login</h1>
+            <img src="img/close.gif" alt="colse" class="close">
+        </div>
+        <div class="login-inpgrp">
+            <form>
+                <div class="login-input">
+                    <input type="text" name="name" class="inp-item" placeholder="请输入用户名">
+                </div>
+                <div class="login-input">
+                    <input type="password" name="pwd" class="inp-item" placeholder="请输入密码">
+                </div>
+                <span><a href="###">忘记密码</a></span><br/>
+                <input type="submit" name="login" value="登     录">
+            </form>
+        </div>
+        <div class="login-footer">
+            <p>还没有账号，立即去<a href="###">注册</a></p>
+        </div>
+    </div>
+    <div class="modal"></div>
     <script src="js/base.js"></script>
-    <script src="js/dropdown.js"></script>
+    <script src="js/blog.js"></script>
 </body>
 </html>

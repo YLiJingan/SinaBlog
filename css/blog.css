@@ -84,4 +84,100 @@ header .nav #menu3{
     left:-3px;
 }
 
+/***************登录panel*****************/
+.panel{
+    width:320px;
+    height:400px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-200px;
+    margin-left: -160px;
+    border:3px solid grey;
+    border-radius: 13px;
+    z-index:999;
+    display:none;
+    background-color: white;
+}
+.login-header{
+    z-index:9999;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-bottom: 1px solid #d9d9d9;
+    cursor:move;
+
+}
+.login-header h1{
+    display:inline-block;
+    padding-left:8px;
+}
+.login-header img{
+    float:right;
+    margin-top: 1px;
+    margin-right: 1px;
+    cursor:pointer;
+}
+.login-inpgrp{
+    width:80%;
+    margin:0 auto;
+    height:50%;
+}
+
+.login-inpgrp .inp-item{
+    height:30px;
+    width:85%;
+    padding-left: 35px;
+    z-index: 999;
+    border:none;
+}
+.login-inpgrp input[type='text'] {
+    border:1px solid grey;
+    border-radius: 3px;
+    background: #fff url(../img/username.png) no-repeat 6px 8px;
+    margin-top: 35px;
+}
+.login-inpgrp input[type='password']{
+    border:1px solid grey;
+    border-radius: 3px;
+    background: #fff url(../img/pwd.png) no-repeat 6px 8px;
+    margin-top: 35px;
+}
+.login-inpgrp span{
+    display: inline-block;
+    margin-top: 30px;
+    text-align: right;
+    width: 90%;
+}
+.login-inpgrp input[type='submit']{
+    width:90%;
+    text-align: center;
+    height:35px;
+    margin:0 auto;
+    margin:10px;
+    font-size:18px;
+    background-color: #1584DB;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+}
+
+.login-footer{
+    margin-top: 60px;
+    width:100%;
+    text-align: center;
+}
+/**********遮罩层***************/
+.modal{
+    position:absolute;
+    top:0;
+    left:0;
+    background-color: black;
+    width:100%;
+    height:100%;
+    filter:opacity(30);
+    opacity:0.3;
+    display:none;
+    z-index:998;
+}
 
