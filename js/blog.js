@@ -21,15 +21,19 @@ window.onload = function(){
     //login
     var login = $().getClass('panel');
     var modal = $().getClass('modal');
-    // login.center(350,250).resize(function(){      //直接通过css进行居中
-    //     login.center(350,250);
-    // });
+    login.center(350,250).resize(function(){
+        login.center(350,250);
+    });
     $().getClass('login').click(function(){
         login.css('display','block');
         modal.css('display','block');
+        document.documentElement.style.overflow = 'hidden';
     });
     $().getClass('close').click(function(){
         login.css('display','none');
         modal.css('display','none');
+        document.documentElement.style.overflow = 'auto';
     });
+
+    login.drag();
 }
