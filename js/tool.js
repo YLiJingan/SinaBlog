@@ -3,7 +3,7 @@
  */
 //跨浏览器事件绑定
 function addEvent(obj,type,fn){
-    if(obj.addEventListener != 'undefined'){
+    if(typeof obj.addEventListener != 'undefined'){
         obj.addEventListener(type,fn,false);
     }else{
         if(!obj.events) obj.events = {};
@@ -20,7 +20,7 @@ function addEvent(obj,type,fn){
 addEvent.ID = 1;
 //执行事件处理函数
 addEvent.exec = function(event){
-    var e = event || window.event;
+    var e = event || addEvent.fixEvent(window.event);
     var es = this.events[e.type];
     for(var i in es){
         es[i].call(this,e);
@@ -37,24 +37,27 @@ addEvent.equal = function(es,fn){
 addEvent.fixEvent = function(event){
     event.preventDefault = addEvent.fixEvent.preventDefault;
     event.stopPropagation = addEvent.fixEvent.stopPropagation;
+    event.target = event.srcElement;
     return event;
-}
+};
 //IE阻止默认行为
 addEvent.fixEvent.preventDefault = function (){
     this.returnValue = false;
-}
+};
 //IE取消冒泡
 addEvent.fixEvent.stopPropagation = function(){
     this.cancelBubble = true;
-}
+};
 //跨浏览器取消事件
 function removeEvent(obj,type,fn){
-    if(obj.removeEventListener != 'undefined'){
+    if(typeof obj.removeEventListener != 'undefined'){
         obj.removeEventListener(type,fn,false);
     }else{
-        for(var i in obj.events[type]){
-            if(obj.events[type][i] == fn){
-                delete obj.events[type][i];
+        if(obj.events){
+            for(var i in obj.events[type]){
+                if(obj.events[type][i] == fn){
+                    delete obj.events[type][i];
+                }
             }
         }
     }
@@ -78,13 +81,7 @@ function getInner(){
 function getEvent(e){
     return e || window.e;
 }
-//阻止默认行为
-function preDef(e){
-    var e = getEvent(e);
-    if (typeof e.preventDefault != 'undefined'){
-        e.preventDefault();
-    }
-    else{
-        e.returnValue = false;
-    }
+//删除左右空格
+function trim(str){
+    return str.replace(/(^\s*)|(\s*$)/g,'');
 }

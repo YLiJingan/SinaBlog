@@ -128,15 +128,17 @@ Base.prototype.hide = function(){
 //设置鼠标移入移除
 Base.prototype.hover = function(over,out){
     for(var i=0;i<this.elements.length;i++){
-        this.elements[i].onmouseover = over;
-        this.elements[i].onmouseout = out;
+        // this.elements[i].onmouseover = over;  //传统事件绑定改为现代事件绑定
+        // this.elements[i].onmouseout = out;
+        addEvent(this.elements[i],'mouseover',over);
+        addEvent(this.elements[i],'mouseout',out);
     }
     return this;
 }
 //设置物体居中
 Base.prototype.center = function(width,height){
-    var top = (document.documentElement.clientHeight - 350) / 2;
-    var left = (document.documentElement.clientWidth - 250) /2;
+    var top = (getInner().height - 350) / 2;
+    var left = (getInner().width - 250) /2;
     for(var i=0;i<this.elements.length;i++){
         this.elements[i].style.top = top + 'px';
         this.elements[i].style.left = left + 'px';
@@ -155,40 +157,10 @@ Base.prototype.resize = function(fn){
     window.onresize = fn;
     return this;
 }
-//拖拽功能
-Base.prototype.drag = function(){
-    for(var i =0;i<this.elements.length;i++){
-        this.elements[i].onmousedown = function(e){
-            preDef(e);
-            var e = getEvent(e);
-            var _this = this;
-            var diffX = e.clientX - _this.offsetLeft;
-            var diffY = e.clientY - _this.offsetTop;
 
-            document.onmousemove = function(e){
-                var e = getEvent(e);
-                var left = e.clientX - diffX;
-                var top = e.clientY - diffY;
-
-                if(left<0){
-                    left = 0;
-                }else if(left>getInner().width- _this.offsetWidth){
-                    left = getInner().width - _this.offsetWidth;
-                }
-                if(top<0){
-                    top = 0;
-                }else if(top>getInner().height- _this.offsetHeight){
-                    top = getInner().height- _this.offsetHeight;
-                }
-
-                _this.style.left = left + 'px';
-                _this.style.top = top + 'px';
-            }
-            document.onmouseup = function(){
-                this.onmousemove = null;
-                this.onmouseup = null;
-            }
-        }
-    }
+//插件入口
+Base.prototype.extend = function(name,fn){
+    Base.prototype[name] = fn;
 }
+
 

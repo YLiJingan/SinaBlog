@@ -25,6 +25,7 @@ window.onload = function(){
         login.center(350,250);
     });
     $().getClass('login').click(function(){
+        login.center(350,250);
         login.css('display','block');
         modal.css('display','block');
         document.documentElement.style.overflow = 'hidden';
@@ -34,6 +35,5 @@ window.onload = function(){
         modal.css('display','none');
         document.documentElement.style.overflow = 'auto';
     });
-
-    login.drag();
+    login.darg();
 }
