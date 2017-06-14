@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM加载</title>
+    <script src="js/tool.js"></script>
+</head>
+<body>
+    <img src="007.jpg">
+    <div id="box">box</div>
+
+<script>
+    var img = document.getElementsByTagName('img')[0];
+    addEvent(img,'click',function(){
+        var box = document.getElementById('box');
+        alert(box.innerHTML);
+    })
+</script>
+</body>
+</html>

@@ -1,6 +1,53 @@
 /**
  * Created by yan on 2017/6/11.
  */
+//浏览器检测
+(function(){
+    window.sys = {};
+    var ua = navigator.userAgent.toLowerCase();
+    var s;
+    (s=ua.match(/msie\s|rv:([\d.]+)/)) ? sys.ie=s[1]:
+        (s=ua.match(/firefox\/([\d.]+)/)) ? sys.firefox=s[1]:
+            (s=ua.match(/chrome\/([\d.]+)/)) ? sys.chrome=s[1]:
+                (s=ua.match(/opera\/.*version\/([\d.]+)/)) ? sys.opera=s[1]:
+                    (s=ua.match(/version\/([\d.]+).*safari/)) ? sys.safari=s[1]: 0;
+    if(/webkit/.test(ua)) sys.webkit = ua.match(/webkit\/([\d.]+)/)[1];
+})();
+
+//DOM加载
+function addDomLoaded(fn){
+    var isReady = false;
+    var timer = null;
+    function doReady(){
+        if(timer) clearInterval(timer);
+        if(isReady) return;
+        isReady = true;
+        fn();
+    }
+
+    if((sys.opera && sys.opera <9) || (sys.firefox && sys.firefox < 3) || (sys.webkit && sys.webkit < 525)){
+        timer = setInterval(function(){
+           if(document && document.getElementById && document.getElementsByTagName && document.body){
+               doReady();
+           }
+        },1);
+    }else if(document.addEventListener){
+        addEvent(document,'DOMContentLoaded',function(){
+            fn();
+            removeEvent(document,'DOMContentLoaded',arguments.callee);
+        });
+    }else if(sys.ie && sys.ie < 9)
+    {
+        var timer = null;
+        timer = setInterval(function(){
+            try{
+                document.documentElement.doScroll('left');
+                doReady();
+            }
+            catch(e){};
+        },1);
+    }}
+
 //跨浏览器事件绑定
 function addEvent(obj,type,fn){
     if(typeof obj.addEventListener != 'undefined'){
