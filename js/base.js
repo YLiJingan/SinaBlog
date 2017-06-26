@@ -2,14 +2,63 @@
  * Created by yan on 2017/6/4.
  * 封装库
  */
-var $ = function(_this){                           //前台调用
-    return new Base(_this);
+var $ = function(args){                           //前台调用
+    return new Base(args);
 }
 
-function Base(_this){                               //基础库
+function Base(args){                               //基础库
     this.elements = [];                 //创建一个数组，来保存获取的节点和节点数组  私有化
-    if(_this != undefined){
-        this.elements[0] = _this;
+    if(typeof args == 'string'){
+        if(args.indexOf(' ') != -1){
+            var elements = args.split(' ');
+            var childElements = [];
+            var node =[];
+            for(var i=0;i<elements.length;i++){
+                if(node.length == 0) node.push(document);
+                switch(elements[i].charAt(0)){
+                    case '#':
+                        childElements = [];
+                        childElements.push(this.getId(elements[i].substring(1)));
+                        node = childElements;
+                        break;
+                    case '.':
+                        childElements = [];
+                        for(var j=0;j<node.length;j++){
+                            var temps = this.getClass(elements[i].substring(1),node[j]);
+                            for(var k=0;k<temps.length;k++){
+                                childElements.push(temps[k]);
+                            }
+                        }
+                        node = childElements;
+                        break;
+                    default:
+                        childElements = [];
+                        for(var j=0;j<node.length;j++){
+                            var temps = this.getTagName(elements[i],node[j]);
+                            for(var k=0;k<temps.length;k++){
+                                childElements.push(temps[k]);
+                            }
+                        }
+                        node = childElements;
+                }
+            }
+            this.elements = childElements;
+        }else {
+            switch (args.charAt(0)) {
+                case '#':
+                    this.elements.push(this.getId(args.substring(1)));
+                    break;
+                case '.':
+                    this.elements = this.getClass(args.substring(1));
+                    break;
+                default:
+                    this.elements = this.getTagName(args);
+            }
+        }
+    }else if(typeof args == 'object'){
+        if(args != undefined){
+            this.elements[0] = args;
+        }
     }
 }
 //ID获取节点方法
