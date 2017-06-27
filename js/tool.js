@@ -132,3 +132,14 @@ function getEvent(e){
 function trim(str){
     return str.replace(/(^\s*)|(\s*$)/g,'');
 }
+
+//跨浏览器获取行内样式 style
+function getStyle(element,attr){
+    var value;
+    if(typeof window.getComputedStyle != 'undefined'){  //W3C
+        value = parseInt(window.getComputedStyle(element,null)[attr]);
+    }else if(typeof element.currentStyle != 'unbdefined'){ //IE
+        value = parseInt(element.currentStyle[attr]);
+    }
+    return value;
+}

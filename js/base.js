@@ -59,39 +59,93 @@ function Base(args){                               //基础库
         if(args != undefined){
             this.elements[0] = args;
         }
+    }else if(typeof args == 'function'){
+        this.ready(args);
     }
+}
+
+//addDomLoaded
+Base.prototype.ready = function(fn){
+    addDomLoaded(fn);
 }
 //ID获取节点方法
 Base.prototype.getId = function(id){
-    this.elements.push(document.getElementById(id));
-    return this;
+    return document.getElementById(id);
 }
 //TagName获取节点数组
-Base.prototype.getTagName = function(tag){
-    var tags = document.getElementsByTagName(tag);
-    for(var i=0;i<tag.length;i++){
-        this.elements.push(document.getElementsByTagName(tag));
+Base.prototype.getTagName = function(tag,parentNode){
+    var node = null;
+    var temps = [];
+    if(parentNode != undefined){
+        node = parentNode;
+    }else{
+        node = document;
     }
-    return this;
+    var tags = document.getElementsByTagName(tag);
+    for(var i=0;i<tags.length;i++){
+        temps.push(tags[i]);
+    }
+    return temps;
 }
 //Class获取节点数组
-Base.prototype.getClass = function(className,idname){
+Base.prototype.getClass = function(className,parentNode){
     var node = null;
-    if(arguments.length == 2){
-        node = document.getElementById('idName');
+    var temps = [];
+    if(parentNode != undefined){
+        node = parentNode;
     }else{
         node = document;
     }
     var all = node.getElementsByTagName("*");
     for(var i=0;i<all.length;i++){
         if(all[i].className == className){
-            this.elements.push(all[i]);
+            temps.push(all[i]);
         }
     }
+    return temps;
+}
+//设置CSS选择器子节点
+Base.prototype.find = function (str) {
+    var childElements = [];
+    for (var i = 0; i < this.elements.length; i ++) {
+        switch (str.charAt(0)) {
+            case '#' :
+                childElements.push(this.getId(str.substring(1)));
+                break;
+            case '.' :
+                var temps = this.getClass(str.substring(1), this.elements[i]);
+                for (var j = 0; j < temps.length; j ++) {
+                    childElements.push(temps[j]);
+                }
+                break;
+            default :
+                var temps = this.getTagName(str, this.elements[i]);
+                for (var j = 0; j < temps.length; j ++) {
+                    childElements.push(temps[j]);
+                }
+        }
+    }
+    this.elements = childElements;
     return this;
 }
-//获取节点数组中的某个节点
-Base.prototype.getElement = function(num){
+
+//获取某一个节点，并返回这个节点对象
+Base.prototype.ge = function (num) {
+    return this.elements[num];
+};
+
+//获取首个节点，并返回这个节点对象
+Base.prototype.first = function () {
+    return this.elements[0];
+};
+
+//获取末个节点，并返回这个节点对象
+Base.prototype.last = function () {
+    return this.elements[this.elements.length - 1];
+};
+
+//获取某一个节点，并且Base对象
+Base.prototype.eq = function (num) {
     var element = this.elements[num];
     this.elements = [];
     this.elements[0] = element;
@@ -207,6 +261,59 @@ Base.prototype.resize = function(fn){
     return this;
 }
 
+//设置动画
+var timer = null;
+Base.prototype.animate = function(obj){       //参数太多，使用对象传参
+    for(var i=0;i<this.elements;i++){
+        var element = this.elements[i];
+        var attr = obj['attr'] == 'x' ? 'left' : obj['attr'] =='y' ? 'top':
+                   obj['attr'] == 'w' ? 'width' :obj['attr'] == 'h' ? 'height' : 'left';
+        var start = obj['start'] != 'undefined' ?obj['start'] : getStyle(element,attr);   //默认为起始位置
+        var time = obj['time'] != 'undefined' ?obj['timer'] : 50;
+        var step = obj['step'] != 'undefined' ?obj['step'] : 10;
+        var target = obj['alter'] + start;
+
+        var alter = obj['alter'];
+        var target = obj['target'];
+
+        var speed = obj['speed'] != undefined ? obj['speed'] :6;
+        var type = obj['type'] == 0 ? 'constant' :obj['type'] == 1 ? 'bufffer' : 'buffer';
+
+
+        if(alter != undefined && target == undefined){
+            target = alter + start;
+        }else if(alter == undefined && target == undefined){
+            throw new Error('alter增量或者target目标量缺失');
+        }
+
+        if(start > target) step = -step;
+        element.style[attr] = start + 'px';
+        clearInterval(timer);
+
+        timer = setInterval(function(){
+            if(type == 'buffer'){
+                step = (target - getStyle(element,attr))/speed;
+                step = step>0 ? Math.ceil(step) : Math.floor(step);
+            }
+
+            if(step == 0){
+                setTarget();
+            }else if(Math.abs(getStyle(element,attr) - target) <= step && step>0) {
+                setTarget();
+            }else if(step<0 && getStyle(element,attr) - target <= Math.abs(step)){
+                setTarget();
+            }else{
+                element.style[attr] = getStyle(element,attr) +step + 'px';
+            }
+        },time);
+
+        function setTarget(){
+            element.style[attr] = target + 'px';
+            clearInterval(timer);
+        }
+        return this;
+    }
+}
 //插件入口
 Base.prototype.extend = function(name,fn){
     Base.prototype[name] = fn;
