@@ -267,8 +267,11 @@ Base.prototype.animate = function(obj){       //参数太多，使用对象传�
     for(var i=0;i<this.elements;i++){
         var element = this.elements[i];
         var attr = obj['attr'] == 'x' ? 'left' : obj['attr'] =='y' ? 'top':
-                   obj['attr'] == 'w' ? 'width' :obj['attr'] == 'h' ? 'height' : 'left';
-        var start = obj['start'] != 'undefined' ?obj['start'] : getStyle(element,attr);   //默认为起始位置
+                   obj['attr'] == 'w' ? 'width' :obj['attr'] == 'h' ? 'height':
+                   obj['attr'] == 'o' ? 'opacity' : 'left';
+        var start = obj['start'] != 'undefined' ?obj['start'] :
+                    attr == 'opacity'? parseFloat(getStyle(element,attr)) * 100:
+                                       parseInt(getStyle(element,attr));   //默认为起始位置
         var time = obj['time'] != 'undefined' ?obj['timer'] : 50;
         var step = obj['step'] != 'undefined' ?obj['step'] : 10;
         var target = obj['alter'] + start;
@@ -287,29 +290,57 @@ Base.prototype.animate = function(obj){       //参数太多，使用对象传�
         }
 
         if(start > target) step = -step;
-        element.style[attr] = start + 'px';
+
+        if(attr == 'opacity'){
+            element.style.opacity = parseInt(start)/100;
+            element.style.filter = 'alpha(opacity = '+ start +')';
+        }else{
+            element.style[attr] = start + 'px';
+        }
+
         clearInterval(timer);
 
         timer = setInterval(function(){
             if(type == 'buffer'){
-                step = (target - getStyle(element,attr))/speed;
+                step = attr == 'opacity' ? (target - parseFloat(getStyle(element,attr)) *100)/speed:
+                                            (target - parseInt(getStyle(element,attr))) / speed;
                 step = step>0 ? Math.ceil(step) : Math.floor(step);
             }
 
-            if(step == 0){
-                setTarget();
-            }else if(Math.abs(getStyle(element,attr) - target) <= step && step>0) {
-                setTarget();
-            }else if(step<0 && getStyle(element,attr) - target <= Math.abs(step)){
-                setTarget();
+            if(attr == 'opacity'){
+                var temp = parseFloat(getStyle(element,attr)) *100;
+                if(step == 0){
+                    setOpacity();
+                }else if(Math.abs(parseFloat(getStyle(element,attr))*100 - target) <= step && step>0) {
+                    setOpacity()
+                }else if(step<0 && parseFloat(getStyle(element,attr))*100 - target <= Math.abs(step)){
+                    setTarget();
+                }else{
+
+                    element.style.opacity = parseInt(temp + step )/100;
+                    element.style.filter = 'alpaha(opacity=' + parseInt(temp + step) + ')';
+                }
             }else{
-                element.style[attr] = getStyle(element,attr) +step + 'px';
+                if(step == 0){
+                    setTarget();
+                }else if(Math.abs(parseInt(getStyle(element,attr)) - target) <= step && step>0) {
+                    setTarget();
+                }else if(step<0 && parseInt(getStyle(element,attr)) - target <= Math.abs(step)){
+                    setTarget();
+                }else{
+                    element.style[attr] = parseInt(getStyle(element,attr)) +step + 'px';
+                }
             }
+
         },time);
 
         function setTarget(){
             element.style[attr] = target + 'px';
             clearInterval(timer);
+        }
+        function setOpacity(){
+            element.style.opacity = parseInt(target)/100;
+            element.style.filter = 'alpha(opacity='+parseInt(target)+')';
         }
         return this;
     }

@@ -37,4 +37,9 @@ $().ready(function() {
         document.documentElement.style.overflow = 'auto';
     });
     login.darg($('.panel .login-header').first());
+    //百度分享初始位置
+    $('.share').css('top', (getInner().height-parseInt(getStyle($('.share').first(), 'height')))/2 +'px');
+    //百度分享收缩功能
+    $('.share').hover(function(){ $(this).animate({ attr:'x', target:0 });
+},function(){ $(this).animate({ attr:'x', target:-211 }); });
 });

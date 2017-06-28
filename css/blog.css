@@ -181,3 +181,106 @@ header .nav #menu3{
     z-index:998;
 }
 
+/**************百度分享侧栏*************/
+.share{
+    border:1px solid #e9e9e9;
+    width:220px;
+    height:240px;
+}
+.share header{
+    height:30px;
+    width:100%;
+    background:#ebebeb;
+    text-indent:10px;
+    line-height: 30px;
+    font-size:14px;
+    font-weight:bold;
+}
+.share ul{
+    font-size:12px;
+    margin:0;
+    padding:5px 0px;
+    list-style:none;
+    overflow: hidden;
+}
+.share ul li{
+    width:90px;
+    float:left;
+    padding:3px;
+    margin-left:10px;
+    overflow: hidden;
+}
+.share ul li a{
+    background: url(../img/share_bg.png) no-repeat;
+    text-indent:25px;
+    display:block;
+    text-decoration: none;
+}
+.share ul li a.a{
+    background-position:5px 0px;
+}
+.share ul li a.b{
+    background-position:5px -30px;
+}
+.share ul li a.c{
+    background-position:5px -60px;
+}
+.share ul li a.d{
+    background-position:5px -90px;
+}
+.share ul li a.e{
+    background-position:5px -120px;
+}
+.share ul li a.f{
+    background-position:5px -150px;
+}
+.share ul li a.g{
+    background-position:5px -180px;
+}
+.share ul li a.h{
+    background-position:5px -210px;
+}
+.share ul li a.i{
+    background-position:5px -240px;
+}
+.share ul li a.j{
+    background-position:5px -270px;
+}
+.share ul li a.k{
+    background-position:5px -300px;
+}
+.share ul li a.l{
+    background-position:5px -330px;
+}
+.share ul li a.m{
+    background-position:5px -360px;
+}
+.share ul li a.n{
+    background-position:5px -390px;
+}
+.share ul li a.o{
+    background-position:5px -420px;
+}
+.share ul li a.p{
+    background-position:5px -450px;
+}
+.share footer{
+    background:#eee;
+    height:26px;
+    position:relative;
+}
+.share footer a{
+    position:absolute;
+    display:block;
+    width:60px;
+    top:3px;
+    left:120px;
+    padding-left:10px;
+    text-decoration: none;
+    font-size:14px;
+    background:#eee url(../img/share_bg.png) no-repeat 0px -475px;
+}
+
+
+
+
