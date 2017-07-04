@@ -8,6 +8,7 @@
     <link rel="stylesheet"  href="css/blog.css"/>
 </head>
 <body>
+
     <header>
         <div class="logo">
             <img src="img/logo.gif" alt="logo">
@@ -48,19 +49,15 @@
             </li>
         </ul>
     </header>
-    <div class="panel">
+    <div class="panel" id="login">
         <div class="login-header">
-            <h1>Login</h1>
+            <h1>Sing in</h1>
             <img src="img/close.gif" alt="colse" class="close">
         </div>
         <div class="login-inpgrp">
             <form>
-                <div class="login-input">
-                    <input type="text" name="name" class="inp-item" placeholder="请输入用户名">
-                </div>
-                <div class="login-input">
-                    <input type="password" name="pwd" class="inp-item" placeholder="请输入密码">
-                </div>
+                <input type="text" name="name" class="inp-item" placeholder="请输入用户名">
+                <input type="password" name="pwd" class="inp-item" placeholder="请输入密码">
                 <span><a href="###">忘记密码</a></span><br/>
                 <input type="submit" name="login" value="登     录">
             </form>
@@ -69,9 +66,25 @@
             <p>还没有账号，立即去<a href="###">注册</a></p>
         </div>
     </div>
+    <div class="panel panel-signup">
+        <div class="login-header">
+            <h1>Sing up</h1>
+            <img src="img/close.gif" alt="colse" class="close">
+        </div>
+        <div class="login-inpgrp">
+            <form>
+                <input type="text" name="name" class="inp-item" placeholder="请输入用户名">
+                <input type="email" name="email" class="inp-item" placeholder="请输入电子邮箱">
+                <input type="tel" name="tel" class="inp-item" placeholder="请输入手机号码">
+                <input type="password" name="pwd" class="inp-item" placeholder="请输入密码">
+                <input type="password" name="pwd" class="inp-item" placeholder="请再次输入密码">
+                <input type="submit" name="login" value="注     册">
+            </form>
+        </div>
+    </div>
     <div class="modal"></div>
     <div class="share">
-        <header>分享到...</header>
+        <div>分享到...</div>
         <ul>
             <li><a href="###" class="a">一键分享</a></li>
             <li><a href="###" class="b">新浪微博</a></li>
@@ -90,7 +103,17 @@
             <li><a href="###" class="o">QQ好友</a></li>
             <li><a href="###" class="p">更多</a></li>
         </ul>
-        <footer class="share-footer"><a href="###">百度分享</a><span></span></footer>
+        <footer><a href="###">百度分享</a><span></span></footer>
+    </div>
+    <div id="main_nav">
+        <ul>
+            <li>首页</li>
+            <li>发博客</li>
+            <li>发微博</li>
+            <li>发游记</li>
+            <li>关于我</li>
+        </ul>
+        <span></span>
     </div>
     <script src="js/tool.js"></script>
     <script src="js/base.js"></script>
